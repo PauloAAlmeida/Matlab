@@ -1,0 +1,77 @@
+    
+% Bifurcação 3D - Paramêtros "e"(ou g4) e NUT (condição inicial)
+% por: Almeida, P.; Faria, L.; Valentin, F.
+
+
+clear all
+global e % "libera" parametro para outro script
+ 
+% Cria bloco memória para variáveis
+y(:,1)=zeros (1000000,1);
+y(:,2)=zeros (1000000,1);
+y(:,3)=zeros (1000000,1);
+y(:,4)=zeros (1000000,1);
+y(:,5)=zeros (1000000,1);
+y(:,6)=zeros (1000000,1);
+y(:,7)=zeros (1000000,1);
+
+% Loop parametro e(ou g4)
+for e = 0:0.1:2 ;
+     
+   
+    e %mostra valor na tela de comando (para acompanhamento da simulação.)
+    
+     %clear y(:,:); clear l % caso código lento (geralmente não aplicavel
+     %nesse script)
+   
+    
+    
+    
+    tspan=[0 2000]; % tempo simulação
+    
+   
+    
+  % Loop Cond. Inicial (somatório yizero)
+    
+    for NUT_TOTAL = 1:2:30
+        
+        NUT_TOTAL
+        
+    in=NUT_TOTAL/7; % par
+
+
+        
+ci = [in in in in in in in] ; % particionamento por yi
+
+
+
+
+   [t,y] = ode113('LimaetAlcbactSexcreV1', tspan, ci); %método Adams-Basforth
+    
+
+l=length(y(:,5)) %tamanho do vetor; y5=predador de topo
+pontos= 300 % pontos coletados do final da série
+%round(l*0.30)
+%plot(e,(y(l-100:l,2)),'.');hold on
+
+%c1=0.9*g4^2;
+%c2=0.9*g4^2;
+
+%plot
+grid on
+plot3(e,NUT_TOTAL,max(y(l-pontos:l,5)),'.','Color','k','Markersize',16);hold on
+plot3(e,NUT_TOTAL,min(y(l-pontos:l,5)),'.','Color','r','Markersize',16)
+y(l,5)
+hold on;
+
+ylabel('\bf{N}')
+xlabel('\bf{e}')
+zlabel('\bf{m MolN m-3}')
+
+    end
+end
+
+
+    
+    
+    
